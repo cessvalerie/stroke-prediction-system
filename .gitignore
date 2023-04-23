@@ -1,0 +1,4 @@
+.vscode
+myvenv/
+__pycache__/
+logistic_regression_model.sav
