@@ -24,16 +24,6 @@ import tkinter as tk
 from tkinter import *
 ############################################################
 
-############ constant #################################################
-system='windows'
-dataset=''
-time_string_format='%d-%m-%Y %H:%M:%S'
-filename = 'logistic_regression_model.sav'
-
-scaler1 = StandardScaler()
-scaler2 = StandardScaler()
-
-
 ########## gui related constant ########
 number_of_field =0
 start_position = 60
@@ -220,6 +210,15 @@ def gui():
 
 
 
+############ constant #################################################
+system='windows'
+dataset=''
+time_string_format='%d-%m-%Y %H:%M:%S'
+filename = 'logistic_regression_model.sav'
+
+scaler1 = StandardScaler()
+scaler2 = StandardScaler()
+########################################################################
 
 
 def detect_system():
@@ -661,7 +660,7 @@ def main():
     
     # next target
     '''
-        
+        complete test_python.py file
     '''
     df = read_dataset()
     check_data(dataframe=df)
