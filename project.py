@@ -210,7 +210,7 @@ def gui():
 
 
 
-############ constant #################################################
+################################ constant #################################################
 system='windows'
 dataset=''
 time_string_format='%d-%m-%Y %H:%M:%S'
@@ -245,7 +245,9 @@ def read_dataset():
     return df
 
 
-# Checking the Data
+"""
+Checking the Data
+"""
 def check_data(dataframe,head=5):
     print(20*"-" + "Information".center(20) + 20*"-")
     print(dataframe.info())
@@ -259,8 +261,9 @@ def check_data(dataframe,head=5):
     print(dataframe.describe([0.01, 0.05, 0.10, 0.50, 0.75, 0.90, 0.95, 0.99]).T)
 
 
-
-# identify Column types
+"""
+identify Column types
+"""
 def identify_cols_types(dataframe, cat_th=10, car_th=20):
     # cat_cols, cat_but_car
 
@@ -443,53 +446,84 @@ def visualization(df):
 
 
 # start normalization
-def label_encoder(dataframe, binary_col):
+def label_encoder(df, binary_col):
+    """return a new dataframe with labelEncoded.
+    Args:
+        df (Dataframe): the dataframe with categorical binary columns
+        binary_col (int): number of binary column. Binary column means possible value for column can be 2 type such as Yes/No
+    Return:
+        df (Dataframe): label encoded dataframe 
+    
+    """
     labelencoder = LabelEncoder()
-    dataframe[binary_col] = labelencoder.fit_transform(dataframe[binary_col])
-    return dataframe
+    df[binary_col] = labelencoder.fit_transform(df[binary_col])
+    return df
 
-def one_hot_encoder(dataframe, categorical_cols, drop_first=True):
-    dataframe = pd.get_dummies(dataframe, columns=categorical_cols, drop_first=drop_first)
-    return dataframe
+def one_hot_encoder(df, categorical_cols, drop_first=True):
+    """return a new dataframe with one hot encoded.
+    Args:
+        df (Dataframe): the dataframe with categorical binary columns
+        categorical_cols (int): number of categorical columns.e.g. column's possible can be 4/5 types.
+        drop_first (boolean): true means original column will be drop. or otherwise
+    Return:
+        df (Dataframe): one hot encoded dataframe 
+    
+    """
+
+    df = pd.get_dummies(df, columns=categorical_cols, drop_first=drop_first)
+    return df
 
 
 
 def normalization(df, num_cols):
+    """Return the normalized dataframe. Normalization required for modeling the dataset into logistic regression model.
+
+    Args:
+        df (Dataframe): The unnormalized dataframe.
+        num_cols (int): number of numeric columns
+
+    Returns:
+        Dataframe: normalized dataframe.
+    """
+
+
     # new features
     df['bmi_cat'] = pd.cut(df['bmi'], bins = [0, 19, 25,30,10000], labels = ['Underweight', 'Ideal', 'Overweight', 'Obesity'])
     df['age_cat'] = pd.cut(df['age'], bins = [0,13,18, 45,60,200], labels = ['Children', 'Teens', 'Adults','Mid Adults','Elderly'])
     df['glucose_cat'] = pd.cut(df['avg_glucose_level'], bins = [0,90,160,230,500], labels = ['Low', 'Normal', 'High', 'Very High'])
 
-    #Encoding and scaling
-    le = LabelEncoder()
-    #binary_cols = [col for col in df.columns if df[col].dtype not in [int, float] and df[col].nunique() == 2]
+
+
+    # Start label Encoding and scaling
     binary_cols =[]
     for col in df.columns:
         if(df[col].dtype not in [int, float]) and df[col].nunique()==2:
             binary_cols.append(col)
-
-
-
     for col in binary_cols:
         df = label_encoder(df, col)
-    
+    # End label encoding
+
+    # Start one hot encoding
     ohe_cols = [col for col in df.columns if 10 >= df[col].nunique() > 2]
     df = one_hot_encoder(df, ohe_cols)
-
-    #scaler = StandardScaler()
+    # End one hot encoding
+    
+    # Fit and normalize numeric data columns
     global scaler1
     scaler1.fit(df[num_cols])
     df[num_cols] = scaler1.transform(df[num_cols])
     print(df.head())
     return df
 
-# end normalization
-
-
-
-
 
 def normalization_single_input(df):
+    """Return the normalized dataframe. It's required for prediction of single sample that got from gui
+
+    Args:
+        df (Dataframe): The unnormalized dataframe which has only one sample data.
+    Returns:
+        Dataframe: normalized dataframe.
+    """
 
     print(df)
 
@@ -598,6 +632,7 @@ def normalization_single_input(df):
     print(df.head())
     return df
 
+# end normalization
 
 def modeling(dataframe):
     y = dataframe["stroke"]
@@ -658,10 +693,7 @@ def main():
     print(f"Hello {username}. Hope everything is fine. I am Stoke prediction model.\nHere These models can assist healthcare professionals in identifying individuals\nwho may be at high risk for stroke and implementing preventive measures.\n")
     
     
-    # next target
-    '''
-        complete test_python.py file
-    '''
+    # start from here
     df = read_dataset()
     check_data(dataframe=df)
     df = df.drop('id', axis=1)
