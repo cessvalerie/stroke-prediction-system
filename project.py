@@ -1,6 +1,7 @@
 import datetime
 import getpass
 import os
+import re
 import sys
 import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import numpy as np
@@ -80,7 +81,7 @@ def submitForm():
 
 
     x = entry_field_list[1].get()
-    if(len(x)>0):
+    if(len(x)>0 and isNumericValue(x)):
         data["avg_glucose_level"] = float(x)
 
     x = entry_field_list[2].get()
@@ -110,6 +111,21 @@ def submitForm():
     else:
         label_result.config(fg='red')
     
+
+def isNumericValue(x):
+    """check with regular expression the string match with pattern
+    Arg:
+        x (String): string data that is checked with pattern
+    return:
+        True, if it matches, false otherwise
+    """
+    pattern = r'^\d+(\.\d+)?$'
+
+    # Match a string that represents a positive numeric value
+    match = re.match(pattern, x)
+    if match:
+        return True
+    return False
 
 
 def dropdown(tk, canvas,label_title, OPTIONS):
@@ -212,7 +228,6 @@ def gui():
 
 ################################ constant #################################################
 system='windows'
-dataset=''
 time_string_format='%d-%m-%Y %H:%M:%S'
 filename = 'logistic_regression_model.sav'
 
@@ -222,6 +237,8 @@ scaler2 = StandardScaler()
 
 
 def detect_system():
+    """ utility method, its trying to recognize the host machine
+    """
     global system
     # sys.platform.startswith('darwin') is required for mac-os. this os is out of support till now.
     if sys.platform.startswith('win'):
@@ -233,7 +250,8 @@ def detect_system():
 
 
 def read_dataset():
-    global dataset
+    """it read the csv file and make dataframe
+    """
     for dirname, _, filenames in os.walk('dataset'):
         for filename in filenames:
             dataset = os.path.join(dirname, filename)
@@ -245,10 +263,9 @@ def read_dataset():
     return df
 
 
-"""
-Checking the Data
-"""
 def check_data(dataframe,head=5):
+    """Its an utility method. Its print the dataframe information, shape and so on.
+    """
     print(20*"-" + "Information".center(20) + 20*"-")
     print(dataframe.info())
     print(20*"-" + "Data Shape".center(20) + 20*"-")
@@ -261,12 +278,11 @@ def check_data(dataframe,head=5):
     print(dataframe.describe([0.01, 0.05, 0.10, 0.50, 0.75, 0.90, 0.95, 0.99]).T)
 
 
-"""
-identify Column types
-"""
-def identify_cols_types(dataframe, cat_th=10, car_th=20):
-    # cat_cols, cat_but_car
 
+def identify_cols_types(dataframe, cat_th=10, car_th=20):
+    """identify columns types
+    """
+    # cat_cols, cat_but_car
     cat_cols = [col for col in dataframe.columns if dataframe[col].dtypes == "O"]
 
     num_but_cat = [col for col in dataframe.columns if dataframe[col].nunique() < cat_th and
@@ -337,6 +353,20 @@ def handle_outliers(dataframe, num_cols):
 
 
 # Start Handling Missing Values
+# Fill missing values by KNN 
+def knn_fill(dataframe,feature):
+    from sklearn.impute import KNNImputer
+    imputer = KNNImputer(n_neighbors=5)
+    scaler = StandardScaler()
+
+    dataframe1 = pd.get_dummies(dataframe[[feature]], drop_first=True)
+    dataframe1 = pd.DataFrame(scaler.fit_transform(dataframe1), columns=dataframe1.columns)
+    dataframe1 = pd.DataFrame(imputer.fit_transform(dataframe1), columns=dataframe1.columns)
+    dataframe1 = pd.DataFrame(scaler.inverse_transform(dataframe1), columns=dataframe1.columns)
+    dataframe[feature] = dataframe1[feature]
+
+
+
 def handle_missing_values(dataframe):
     print("\n" + 20*"-" + "Handle Missing values".center(20) + 20*"-")
 
@@ -354,8 +384,9 @@ def handle_missing_values(dataframe):
 
     # fill missing value by mean value
     for col in na_columns:
-        mean = dataframe[col].mean()
-        dataframe[col].fillna(mean, inplace=True)
+        #mean = dataframe[col].mean()
+        #dataframe[col].fillna(mean, inplace=True)
+        knn_fill(dataframe,col)
 
     
     # checking again for null value
