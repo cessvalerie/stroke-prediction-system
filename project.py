@@ -44,10 +44,15 @@ entry_field_list=[]
 def submitForm():
 
     data = {}
-    x = entry_field_list[0].get()
-    if(len(x)>0):
-        data["age"] = float(x)
-
+    try:
+        x = entry_field_list[0].get()
+        if(not isNumericValue(x)):
+            raise Exception("required positive numeric value")
+        if(len(x)>0):
+            data["age"] = float(x)
+    except Exception:
+        label_result.config(text ="invalid age")
+        return
    
     x = dropdown_list[1].get()
     if(x=="YES"):
@@ -79,15 +84,25 @@ def submitForm():
         data["Residence_type"] = 0
 
 
+    try:
+        x = entry_field_list[1].get()
+        if(not isNumericValue(x)):
+            raise Exception("required positive numeric value")
+        if(len(x)>0):
+            data["avg_glucose_level"] = float(x)
+    except Exception:
+        label_result.config(text ="invalid average glucose level")
+        return
 
-    x = entry_field_list[1].get()
-    if(len(x)>0 and isNumericValue(x)):
-        data["avg_glucose_level"] = float(x)
-
-    x = entry_field_list[2].get()
-    if(len(x)>0):
-        data["bmi"] = float(x)
-
+    try:
+        x = entry_field_list[2].get()
+        if(not isNumericValue(x)):
+            raise Exception("required positive numeric value")
+        if(len(x)>0):
+            data["bmi"] = float(x)
+    except Exception:
+        label_result.config(text ="invalid Body Mass Index")
+        return
 
     x = dropdown_list[0].get()
     data["gender"] = x
@@ -226,14 +241,14 @@ def gui():
 
 
 
-################################ constant #################################################
+##################################################### constant #################################################
 system='windows'
 time_string_format='%d-%m-%Y %H:%M:%S'
 filename = 'logistic_regression_model.sav'
 
 scaler1 = StandardScaler()
 scaler2 = StandardScaler()
-########################################################################
+################################################################################################################
 
 
 def detect_system():
