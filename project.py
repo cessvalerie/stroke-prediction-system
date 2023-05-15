@@ -33,8 +33,8 @@ position_diff = 40
 HYPERTENSION_OPTIONS=["YES", "NO"]
 WORK_OPTIONS=["Private","Self-employed","Govt_job","children","Never_worked"]
 RESIDENCE_OPTIONS=["Urban", "Rural"]
-SMOKING_OPTIONS=["Formaly smoked","never smoked","smokes","Unknown"]
-GENDER_OPTIONS = ["Male","Famle","Other"]
+SMOKING_OPTIONS=["Formerly smoked","never smoked","smokes","Unknown"]
+GENDER_OPTIONS = ["Male","Female","Other"]
 dropdown_list=[]
 entry_field_list=[]
 ########################################################################
@@ -198,14 +198,14 @@ def gui():
     
     
     # hyper tension dropdown  
-    label_title = "Do patient have Hypertension:"
+    label_title = "Does patient have Hypertension:"
     dropdown(tk, canvas1, label_title, HYPERTENSION_OPTIONS)
     
     label_title="Heart disease history:"
     dropdown(tk,canvas1,label_title, HYPERTENSION_OPTIONS)
     
     
-    label_title="marrial status (married/unmarried):"
+    label_title="marital status (married/unmarried):"
     dropdown(tk,canvas1,label_title, HYPERTENSION_OPTIONS)
     
     label_title="Enter work type:"
@@ -563,7 +563,7 @@ def normalization(df, num_cols):
 
 
 def normalization_single_input(df):
-    """Return the normalized dataframe. It's required for prediction of single sample that got from gui
+    """Return the normalized dataframe. It's required for prediction of single sample from gui
 
     Args:
         df (Dataframe): The unnormalized dataframe which has only one sample data.
@@ -736,7 +736,7 @@ def main():
     print('')
 
     username = getpass.getuser()
-    print(f"Hello {username}. Hope everything is fine. I am Stoke prediction model.\nHere These models can assist healthcare professionals in identifying individuals\nwho may be at high risk for stroke and implementing preventive measures.\n")
+    print(f"Hello {username}. Hope everything is fine. I am the Stroke prediction model.\nHere I can assist healthcare professionals in identifying individuals\nwho may be at high risk for stroke and implementing preventative measures.\n")
     
     
     # start from here
