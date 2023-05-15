@@ -43,7 +43,7 @@ The model uses Python and its libraries such as Pandas, Scikit-learn, and Matplo
 ## User Stories
 As a medical professional, you can  use this model to:
 
-Identify patients who are at high risk of stroke and recommend preventative measures based on the mosel.
+Identify patients who are at high risk of stroke and recommend preventative measures based on the model.
 Improve the accuracy of stroke risk prediction and reduce false positives/negatives.
 Better understand the key risk factors for stroke and how they contribute to stroke risk.
 
@@ -70,6 +70,7 @@ The dataset used to train this model is the Stroke Prediction Dataset from Kaggl
 ## Challenges
 
 ## Logistic Regresssion Model
+
 
 ## License
 This project is not yet licensed. It is an educational model. All sources are properly cited and credit is given in the References tab.
