@@ -36,7 +36,7 @@ $ pip install tkinter - for creating graphical user interface (GUI) applications
 # Stroke Prediction System
 
 This is a machine learning model that uses logistic regression to model the relationship between the predictor variables and the stroke outcome. 
-The model uses Python and its libraries such as Pandas, Scikit-learn, and Matplotlib for data processing, modeling, and evaluation. It predicts the likelihood of an individual having a stroke based on demographic, lifestyle, and health-related factors. The main risk factors used were age, BMI and average glucose level. Other factors included in the model were heart-disease history, hypertension, place of residence(urban/rural), smoking factors, occupation and gender.
+The model uses Python and its libraries such as Pandas, Scikit-learn, and Matplotlib for data processing, modeling, and evaluation. It predicts the likelihood of an individual having a stroke based on demographic, lifestyle, and health-related factors. The main risk factors used were age, BMI and average glucose level. Other factors included in the model are heart-disease history, hypertension, place of residence(urban/rural), smoking factors, occupation and gender.
 
 ```
 
@@ -85,7 +85,7 @@ This project is not yet licensed. It is an educational model. All sources are pr
 - Entire TEKsystems-Takeda Team for their resources and time during the entire duration of the training program 
 - My Classmates for allowing me to learn from them, persevering and growing together
 
-## References for Projection
+## References for Project
 - Stroke Facts | cdc.gov. (2023, May 4). Centers for Disease Control and Prevention. https://www.cdc.gov/stroke/facts.htm
 
 - Mechatronixs. (2023). Prediction with 7-Classification Models | ROC AUC. Kaggle. https://www.kaggle.com/code/mechatronixs/prediction-with-7-classification-models-roc-auc
