@@ -22,12 +22,15 @@ To exit the virtual environment, you can run the following command:
 
 ## required packages
 ```
-$ pip install pandas
-$ pip install -U scikit-learn
-$ pip install matplotlib
-$ pip install seaborn
-$ pip install imbalanced-learn
-$ pip install pytest
+$ pip install pandas - for data processing and manipulation
+$ pip install -U scikit-learn - for machine learning algorithms and model evaluation 
+$ pip install matplotlib - for data visualization
+$ pip install seaborn - for statistical graphics
+$ pip install imbalanced-learn - for handling imbalanced datasets
+$ pip install pytest - for writing and running tests for code
+$ pip install numpy - for numerical computations
+$ pip install tkinter - for creating graphical user interface (GUI) applications in Python
+
 ```
 
 # Stroke Prediction System
@@ -35,12 +38,16 @@ $ pip install pytest
 This is a machine learning model that uses logistic regression to model the relationship between the predictor variables and the stroke outcome. 
 The model uses Python and its libraries such as Pandas, Scikit-learn, and Matplotlib for data processing, modeling, and evaluation. It predicts the likelihood of an individual having a stroke based on demographic, lifestyle, and health-related factors. The main risk factors used were age, BMI and average glucose level. Other factors included in the model were heart-disease history, hypertension, place of residence(urban/rural), smoking factors, occupation and gender.
 
+```
+
 ## User Stories
 As a medical professional, you can  use this model to:
 
 Identify patients who are at high risk of stroke and recommend preventative measures based on the mosel.
 Improve the accuracy of stroke risk prediction and reduce false positives/negatives.
 Better understand the key risk factors for stroke and how they contribute to stroke risk.
+
+```
 
 ## Getting Started
 
@@ -61,10 +68,11 @@ The dataset used to train this model is the Stroke Prediction Dataset from Kaggl
  This model is reliable and accurate in predicting stroke risk based on the given input variables. (Age, BMI, avg glucose level,etc)
 
 ## Challenges
-## Logistic Regresssion Model
-## License
 
-This project is not yet licensed. It is an educational model.
+## Logistic Regresssion Model
+
+## License
+This project is not yet licensed. It is an educational model. All sources are properly cited and credit is given in the References tab.
 
 ## Acknowledgments
 
