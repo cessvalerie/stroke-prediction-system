@@ -68,8 +68,22 @@ The dataset used to train this model is the Stroke Prediction Dataset from Kaggl
  This model is reliable and accurate in predicting stroke risk based on the given input variables. (Age, BMI, avg glucose level,etc)
 
 ## Challenges
+1.) The model is only as good as the data it is trained on.
+     If the data is not accurate, the model will not be able to make 100% accurate predictions.
+
+2.) Logistic regression requires that each data point be independent of all other data points. 
+    If data is dependent on each other, then the model will tend to overweight the significance of those observations. 
+
+3.) Difficult to use in clinical settings. 
+    Scientific research relies on multiple observations of the same individuals. For example, drug trials comparing two similar individuals, one taking a drug and the other taking a placebo. e.g. Takeda
+
+4.) Does not consider other risk factors 
+       e.g., Ethnicity, High-cholesterol level, Diabetes, Family history, Drug use
+       Very limited dataset only 5000 patients
+*** The model is only a tool and should not be used as a substitute for medical advice ***
 
 ## Logistic Regresssion Model
+This is a popular machine learning algorithm used for binary classification. An expected outcome should only be a 0 or 1 which indicates a negative or positive outcome. In this case, for the Stroke Prediction System, the expected outcomes are 1 or 0 for a probability of a stroke occurring.
 
 
 ## License
